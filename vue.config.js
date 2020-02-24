@@ -11,24 +11,20 @@ module.exports = {
    **/
   chainWebpack: config => {},
   configureWebpack: config => {
-    // config.resolve = { // 配置解析别名
-    //   extensions: ['.js', '.json', '.vue'],
-    //   alias: {
-    //     '@': path.resolve(__dirname, './src'),
-    //     'public': path.resolve(__dirname, './public'),
-    //     'components': path.resolve(__dirname, './src/components'),
-    //     'common': path.resolve(__dirname, './src/common'),
-    //     'api': path.resolve(__dirname, './src/api'),
-    //     'views': path.resolve(__dirname, './src/views'),
-    //     'data': path.resolve(__dirname, './src/data')
-    //   }
-    // }
+    config.resolve = {
+      // 配置解析别名
+      extensions: [".js", ".json", ".vue"], // 自动添加文件名后缀
+      alias: {
+        "@": path.resolve(__dirname, "./src"),
+        "@c": path.resolve(__dirname, "./src/components")
+      }
+    };
   },
   // 生产环境是否生成 sourceMap 文件
   productionSourceMap: false,
   // css相关配置
   css: {
-    // 是否使用css分离插件 ExtractTextPlugin
+    // 是否使用css分离插件 ExtractTextPlugin  生产环境下是true,开发环境下是false
     extract: true,
     // 开启 CSS source maps?
     sourceMap: false,
@@ -38,8 +34,8 @@ module.exports = {
         prependData: `@import "./src/styles/main.scss";`
       }
     },
-    // 启用 CSS modules for all css / pre-processor files.
-    requireModuleExtension: false
+    // 启用 CSS modules for all css / pre-processor files(预处理文件).
+    requireModuleExtension: true
   },
   // use thread-loader for babel & TS in production build
   // enabled by default if the machine has more than 1 cores
