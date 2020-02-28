@@ -58,7 +58,9 @@
               ></el-input>
             </el-col>
             <el-col :span="9">
-              <el-button type="success" class="btn">获取验证码</el-button>
+              <el-button type="success" class="btn" @click="getSms()"
+                >获取验证码</el-button
+              >
             </el-col>
           </el-row>
         </el-form-item>
@@ -75,6 +77,7 @@
 <script>
 import { stripscript } from "@/utils/validate";
 import { reactive, ref, toRefs, onMounted } from "@vue/composition-api";
+import { GetSms } from "@/api/login";
 export default {
   name: "login",
   setup(props, context) {
@@ -188,6 +191,18 @@ export default {
       // 修改模块值
       model.value = data.type;
     };
+    /**
+     * 获取验证码
+     */
+    const getSms = () => {
+      let data = {
+        username: ruleForm.username
+      };
+      GetSms(data);
+    };
+    /**
+     * 表单提交
+     */
     const submitForm = formName => {
       context.refs[formName].validate(valid => {
         if (valid) {
@@ -220,7 +235,8 @@ export default {
       toggleMenu,
       submitForm,
       ruleForm,
-      rules
+      rules,
+      getSms
     };
   }
 };
